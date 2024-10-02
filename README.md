@@ -15,4 +15,4 @@
 2. open a git bash terminal
 3. run ``` git config user.email <your relevant email> ```
 4. run ``` git config user.name <yout github username>```
-5. 
+5. connect this repo to the project with version control
