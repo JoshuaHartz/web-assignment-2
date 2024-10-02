@@ -16,8 +16,7 @@
 3. open a git bash terminal
 4. run ``` git config user.email <your relevant email> ```
 5. run ``` git config user.name <yout github username>```
-6. connect this repo to the project with version control
-
+6. should be good?
 
 ## Pushing and committing
 make sure you change the destination to origin:dev not master
