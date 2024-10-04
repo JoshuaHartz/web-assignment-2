@@ -1,6 +1,5 @@
 <!doctype html>
 <html class="no-js" lang="">
-<div>test12</div>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,11 +22,48 @@
 </head>
 
 <body>
-<div>tes1t</div>
-  <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
-  <script src="js/app.js"></script>
-  <div> testin</div>
+<header class="header">
+  <h1>My Events Manager</h1>
+  <h3>Showing: </h3>
+  <fieldset class="filter-container">
+    <legend>Filter Events</legend>
+    <label class="Events">
+      <select name="Events" id="events">
+        <option value="test">All</option>
+      </select>
+    </label>
+    <label class="Title">
+      <input type="text" id="Title-text">
+    </label>
+    <label class="Desc">
+      <input type="text" id="Desc-text">
+    </label>
+    <label class="Date">
+      <input type="text" id="Date-text">
+    </label>
+    <button class="submit-btn" id="submit-btn">Submit</button>
+    <button class="clear-btn" id="clear-btn">Clear Filters</button>
+  </fieldset>
+</header>
+
+<div class="content">
+  <div class="card-holder" id="card-holder">
+      <p>place cards here lmao</p>
+    <article class="card">
+      <img src="https://via.placeholder.com/300x180" alt="Card Image">
+      <div class="card-content">
+        <h2 id="card-title">Article Title</h2>
+        <p class="card-content">This is a short description of the article. It provides a quick overview of the content inside the card.</p>
+
+      </div>
+    </article>
+  </div>
+</div>
+
+<footer class="footer">
+
+</footer>
+
 </body>
 
 </html>
