@@ -110,21 +110,26 @@ body {
   padding: 15px;
 }
 .card-content button {
+  margin-top: 10px;
   background-color: white;
   border: none;
+  cursor: pointer;
+}
+
+.card-content .description {
+  display: none; /* Hides the description by default */
+}
+
+.card-content .description.active {
+  display: block; /* Displays the description when the class is active */
 }
 
 .card-content p {
   font-size: 14px;
   color: #555;
   margin-top: 10px;
-  max-height: 0;
-  overflow: hidden;
+  transition: max-height 0.3s ease; /* Smooth transition for max-height */
 }
-
-
-
-
 
 
 @media screen and (min-width: 768px) {
