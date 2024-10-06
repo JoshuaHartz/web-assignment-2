@@ -38,8 +38,8 @@ fetch(rssUrl)
                 <img src="${imgSrc}" alt="${title}">
                 <div class="card-content">
                     <h2 class="card-title">${title}</h2>
-                    <p class="card-content">Date: ${formattedDate}</p>
-                    <p class="card-content">Location: ${location}</p>
+                    <p class="card-content-date">Date: ${formattedDate}</p>
+                    <p class="card-content-location">Location: ${location}</p>
                     <button class="learn-more">Learn more</button>
                 </div>
             `;

@@ -83,138 +83,191 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-html {
-  height: 100%;
+
+
+body,html {
+  height: 100%
 }
+
 body {
-  font-family: Segoe UI, Roboto, Helvetica, Arial, serif;
+  font-family: Segoe UI,Roboto,Helvetica,Arial,serif;
   font-size: inherit;
-  height: 100%;
   display: flex;
   margin: 0;
-  flex-direction: column;
+  flex-direction: column
 }
 
 .card {
   width: 300px;
   border: 1px solid #ddd;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 8px rgba(0,0,0,.1);
+  flex: 0 1 calc(20% - 1em);
+  margin: 1em 0
 }
+
 .card img {
   width: 100%;
   height: 180px;
-  object-fit: cover;
+  object-fit: cover
 }
+
 .card-content {
-  padding: 15px;
+  padding: 15px
 }
+
 .card-content button {
-  margin-top: 10px;
-  background-color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.card-content .description {
-  display: none; /* Hides the description by default */
-}
-
-.card-content .description.active {
-  display: block; /* Displays the description when the class is active */
+  border: solid #d3d3d3;
+  padding: .5em 1em;
+  background-color: #fff;
+  border-radius: 5px 5px 5px 5px;
+  cursor: pointer
 }
 
 .card-content p {
-  font-size: 14px;
   color: #555;
-  margin-top: 10px;
-  transition: max-height 0.3s ease; /* Smooth transition for max-height */
+  margin: 0 0 1em;
+  transition: max-height .3s ease
+}
+
+.card-content .card-content-date {
+  margin: 0;
+  font-size: 14px
+}
+
+.card-content .card-content-location {
+  font-size: 16px
+}
+
+.card-holder {
+  display: flex;
+  margin: 0 1em;
+  flex-wrap: wrap;
+  justify-content: space-between
+}
+
+.Date::before,.Desc::before,.Events::before,.Title::before {
+  position: absolute;
+  color: #000;
+  padding: 5px 5px 5px 10px;
+  border-radius: 5px 0 0 5px;
+  background-color: silver;
+  content: "Event"
+}
+
+.Title::before {
+  padding: 5px 13px 5px 10px;
+  content: "Title"
+}
+
+.Desc::before {
+  padding: 5px 9px 5px 10px;
+  content: "Desc"
+}
+
+.Date::before {
+  padding: 5px 9px 5px 10px;
+  content: "Date"
+}
+
+.button-container button {
+  margin: 0 .5em 0 0;
+  padding: .5em 5em;
+  border: solid silver;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.button-container .clear-btn {
+  padding: .5em 3em
 }
 
 
-@media screen and (min-width: 768px) {
+/*Mobile version*/
+@media screen and (max-width:768px) {
+  .filter-container,.header {
+    display: flex;
+    flex-direction: column
+  }
+  .header {
+    justify-content: left;
+    background: linear-gradient(90deg,#3e0087 0,#210303 100%);
+    padding: 50px 0 10px;
+    text-align: left;
+    color: #fff
+  }
+  .header h1 {
+    font-size: 60px;
+    padding-left: .5em
+  }
+  .filter-container {
+    border: 2px solid gray;
+    padding: 1em 1em .5em .5em;
+    border-radius: 10px 10px 10px 10px;
+    background: #3e0087ff
+  }
+  .filter-container .Events select,.filter-container input {
+    border: solid silver;
+    margin: 0 1em .5em 0;
+    border-radius: 5px 5px 5px 5px;
+    padding: .5em 5em .5em 4em;
+    width: 100%;
+    justify-content: left
+  }
+  .button-container {
+    display: flex;
+  }
+  .button-container button {
+    width: 100%
+  }
+  .card {
+    width: 300px;
+    height: 500px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0,0,0,.1);
+    flex: 1 1 100%;
+    margin: 1em 0
+  }
+}
+
+@media screen and (min-width:768px) {
   .header {
     display: flex;
     justify-content: left;
     flex-direction: column;
-    background: linear-gradient(90deg, rgb(62, 0, 135) 0%, rgb(33,3,3) 100%);
-    padding: 50px 0 10px 0;
+    background: linear-gradient(90deg,#3e0087 0,#210303 100%);
+    padding: 50px 0 10px;
     text-align: left;
-    color: white;
+    color: #fff
   }
-  /*Title Name*/
+
   .header h1 {
     font-size: 60px;
-    padding-left: .5em;
+    padding-left: .5em
   }
 
   .filter-container {
-    border: 2px solid grey;
+    border: 2px solid gray;
     padding: 1em 1em .5em .5em;
     border-radius: 10px 10px 10px 10px;
-    background: #3E0087FF;
+    background: #3e0087ff;
+    display: flex
   }
+
   .filter-container .Events select {
-    border: solid #C0C0C0;
+    border: solid silver;
     margin: 0 1em 0 0;
     border-radius: 5px 5px 5px 5px;
     padding: .5em 5em .5em 4em;
     width: 250px;
-    justify-content: left;
-
+    justify-content: left
   }
 
-  .filter-container input {
-    border: solid #C0C0C0;
+  .button-container button,.filter-container input {
+    border: solid silver;
     margin: 0 1em 0 0;
     border-radius: 5px 5px 5px 5px;
-    padding: .5em 3em .5em 3.5em;
+    padding: .5em 3em .5em 4em
   }
-
-  .Events::before {
-    position: absolute;
-    color: Black;
-    padding: 5px 5px 5px 10px;
-    border-radius: 5px 0 0 5px;
-    background-color: #C0C0C0;
-    content: "Event";
-  }
-
-  .Title::before {
-    position: absolute;
-    color: Black;
-    padding: 5px 5px 5px 10px;
-    border-radius: 5px 0 0 5px;
-    background-color: #C0C0C0;
-    content: "Title";
-  }
-  .Desc::before {
-    position: absolute;
-    color: Black;
-    padding: 5px 5px 5px 10px;
-    border-radius: 5px 0 0 5px;
-    background-color: #C0C0C0;
-    content: "Desc";
-  }
-  .Date::before {
-    position: absolute;
-    color: Black;
-    padding: 5px 5px 5px 10px;
-    border-radius: 5px 0 0 0;
-    background-color: #C0C0C0;
-    content: "Date";
-  }
-  button {
-    margin: 0 .5em 0 0;
-    border: solid #C0C0C0;
-    border-radius: 5px 5px 5px 5px;
-    padding: .5em 3em .5em 3em;
-  }
-
 }
-
-
-
 
 
 
