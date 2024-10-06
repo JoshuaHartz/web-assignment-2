@@ -169,17 +169,51 @@ body {
   content: "Date"
 }
 
+.filter-container {
+  border: 2px solid gray;
+  padding: 1em 1em .5em .5em;
+  border-radius: 10px 10px 10px 10px;
+  background: #3e0087ff;
+}
+
+.button-container button,.filter-container input,.filter-container select {
+  border: solid silver;
+  margin: 0 1em 0 0;
+  border-radius: 5px 5px 5px 5px;
+  padding: .5em 3em .5em 4em
+}
+
+.filter-container label {
+  display: block;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .button-container button {
   margin: 0 .5em 0 0;
   padding: .5em 5em;
   border: solid silver;
   border-radius: 5px 5px 5px 5px;
+  cursor: pointer;
+  background-color: white; /* not sure what color to make it*/
+}
+
+.button-container button:hover {
+  background-color: #30005a;
 }
 
 .button-container .clear-btn {
-  padding: .5em 3em
+  padding: .5em 3em;
+  background-color: #ccc;
+  color: #000;
 }
 
+.button-container .clear-btn:hover {
+  background-color: #999;
+}
 
 /*Mobile version*/
 @media screen and (max-width:768px) {
