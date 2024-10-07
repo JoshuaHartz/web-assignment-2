@@ -1,3 +1,4 @@
+"use strict";
 const rssUrl = './events.rss';  // Assuming events.rss is in the same directory
 const cardHolder = document.getElementById('card-holder');
 
@@ -53,7 +54,7 @@ fetch(rssUrl)
       // Append the description to the card
       card.querySelector('.card-content').appendChild(descriptionElement);
 
-      // Attach the card to the card holder
+      // Attach the card to the cardholder
       cardHolder.appendChild(card);
 
       // Get reference to the 'Learn more' button
