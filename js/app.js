@@ -1,6 +1,7 @@
 "use strict";
 const rssUrl = './events.rss';  // Assuming events.rss is in the same directory
 const cardHolder = document.getElementById('card-holder');
+let eventObjs = [];
 
 // Fetch and process the XML data
 fetch(rssUrl)
@@ -29,6 +30,16 @@ fetch(rssUrl)
       const description = item.querySelector('description')?.textContent || 'No Description';
       const enclosure = item.querySelector('enclosure');
       const imgSrc = enclosure ? enclosure.getAttribute('url') : 'learning.jpg';
+
+      const eventObj = {
+        title: title,
+        startDate: formattedDate,
+        location: location,
+        description: description,
+        enclosure: enclosure,
+        imgSrc: imgSrc
+      }
+      eventObjs.push(eventObj);
 
       // Create the event card element
       const card = document.createElement('article');
@@ -74,3 +85,50 @@ fetch(rssUrl)
     });
   })
   .catch(error => console.error('Error fetching or parsing RSS feed:', error));
+// Filter events by description
+function filterByDesc(events, desc) {
+  if (!desc) return events;
+  return events.filter(events => event.description.toLowerCase().includes(desc.toLowerCase()))
+}
+// Clear filters and resent event display
+function clearFilters() {
+  document.getElementById('Title-text').value = '';
+  document.getElementById('Desc-text').value = '';
+  document.getElementById('Date-text').value = '';
+  displayAllEvents();
+}
+// Repopulates UI with all events
+function displayAllEvents() {
+  cardHolder.innerHTML = '';
+  eventObjs.forEach(event => createEventCard(event));
+}
+// Creates event card
+function createEventCard(event) {
+  const card = document.createElement('article');
+  card.classList.add('card');
+  const descriptionElement = document.createElement('p');
+  descriptionElement.classList.add('description');
+  descriptionElement.style.display = 'none';
+  card.querySelector('.card-content').appendChild(descriptionElement);
+  cardHolder.appendChild(card);
+  const learnMoreBtn = card.querySelector('.learn-more');
+
+  learnMoreBtn.addEventListener('click', () => {
+    if (descriptionElement.style.display = 'none') {
+      descriptionElement.style.display = 'block';
+      learnMoreBtn.textContent = 'Show less';
+    } else {
+      descriptionElement.style.display = 'none';
+      learnMoreBtn.textContent = 'Learn more';
+    }
+  });
+}
+// Clear Filter and Submit Filter buttons
+document.getElementById('submit-btn').addEventListener('click', () => {
+  const descriptionFilter = document.getElementById('Desc-text').value;
+  const filteredEvents = filterByDesc(eventObjs, descriptionFilter);
+  cardHolder.innerHTML = '';
+  filteredEvents.forEach(event => createEventCard(event));
+})
+// listening for clear button
+document.getElementById('clear-btn').addEventListener('click', clearFilters);
