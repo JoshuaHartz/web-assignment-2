@@ -132,3 +132,4 @@ document.getElementById('submit-btn').addEventListener('click', () => {
 })
 // listening for clear button
 document.getElementById('clear-btn').addEventListener('click', clearFilters);
+
