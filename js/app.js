@@ -87,6 +87,15 @@ fetch(rssUrl)
     });
   })
   .catch(error => console.error('Error fetching or parsing RSS feed:', error));
+// filter by title
+function filteredByTitle ( eventObjs  , title) {
+
+}
+// filter by date
+function filterByDate(events, date) {
+  if (date) return events
+  return events
+}
 // Filter events by description
 function filterByDesc(events, desc) {
   if (!desc) return events;
@@ -130,6 +139,8 @@ function createEventCard(event) {
 // Clear Filter and Submit Filter buttons
 document.getElementById('submit-btn').addEventListener('click', () => {
   const descriptionFilter = document.getElementById('Desc-text').value;
+  const dateFilter = document.getElementById('Date-text');
+  const titleFilter = document.getElementById('Title-text');
   const filteredEvents = filterByDesc(eventObjs, descriptionFilter);
   cardHolder.innerHTML = '';
   console.log('submitted')
