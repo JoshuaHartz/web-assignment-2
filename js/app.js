@@ -37,7 +37,8 @@ fetch(rssUrl)
         location: location,
         description: description,
         enclosure: enclosure,
-        imgSrc: imgSrc
+        imgSrc: imgSrc,
+        html: null
       }
       eventObjs.push(eventObj);
 
@@ -55,7 +56,7 @@ fetch(rssUrl)
                     <button class="learn-more">Learn more</button>
                 </div>
             `;
-
+      eventObj.html = card.innerHTML
       // Create the description element separately
       const descriptionElement = document.createElement('p');
       descriptionElement.classList.add('description');
@@ -88,7 +89,7 @@ fetch(rssUrl)
 // Filter events by description
 function filterByDesc(events, desc) {
   if (!desc) return events;
-  return events.filter(events => event.description.toLowerCase().includes(desc.toLowerCase()))
+  return events.filter(eventItem => eventItem.description.toLowerCase().includes(desc.toLowerCase()));
 }
 // Clear filters and resent event display
 function clearFilters() {
@@ -106,15 +107,16 @@ function displayAllEvents() {
 function createEventCard(event) {
   const card = document.createElement('article');
   card.classList.add('card');
+  card.innerHTML = event.html
   const descriptionElement = document.createElement('p');
   descriptionElement.classList.add('description');
-  descriptionElement.style.display = 'none';
-  card.querySelector('.card-content').appendChild(descriptionElement);
+  descriptionElement.innerHTML = event.description;
+  descriptionElement.style.display = 'none'; // Ensure it's hidden initially
+
   cardHolder.appendChild(card);
   const learnMoreBtn = card.querySelector('.learn-more');
-
   learnMoreBtn.addEventListener('click', () => {
-    if (descriptionElement.style.display = 'none') {
+    if (descriptionElement.style.display === 'none') {
       descriptionElement.style.display = 'block';
       learnMoreBtn.textContent = 'Show less';
     } else {
@@ -128,6 +130,7 @@ document.getElementById('submit-btn').addEventListener('click', () => {
   const descriptionFilter = document.getElementById('Desc-text').value;
   const filteredEvents = filterByDesc(eventObjs, descriptionFilter);
   cardHolder.innerHTML = '';
+  console.log('submitted')
   filteredEvents.forEach(event => createEventCard(event));
 })
 // listening for clear button
