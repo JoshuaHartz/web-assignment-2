@@ -28,6 +28,7 @@ fetch(rssUrl)
       const locationElem = item.getElementsByTagNameNS('events', 'location')[0];
       const location = locationElem ? locationElem.textContent : 'No Location';
       const description = item.querySelector('description')?.textContent || 'No Description';
+      // console.log(description)
       const enclosure = item.querySelector('enclosure');
       const imgSrc = enclosure ? enclosure.getAttribute('url') : 'learning.jpg';
 
@@ -35,7 +36,7 @@ fetch(rssUrl)
         title: title,
         startDate: formattedDate,
         location: location,
-        description: description,
+        desc: description,
         enclosure: enclosure,
         imgSrc: imgSrc,
         html: null
@@ -89,7 +90,7 @@ fetch(rssUrl)
 // Filter events by description
 function filterByDesc(events, desc) {
   if (!desc) return events;
-  return events.filter(eventItem => eventItem.description.toLowerCase().includes(desc.toLowerCase()));
+  return events.filter(eventItem => eventItem.desc.toLowerCase().includes(desc.toLowerCase()));
 }
 // Clear filters and resent event display
 function clearFilters() {
@@ -110,9 +111,10 @@ function createEventCard(event) {
   card.innerHTML = event.html
   const descriptionElement = document.createElement('p');
   descriptionElement.classList.add('description');
-  descriptionElement.innerHTML = event.description;
+  console.log(event.desc)
+  descriptionElement.innerHTML = event.desc
   descriptionElement.style.display = 'none'; // Ensure it's hidden initially
-
+  card.querySelector('.card-content').appendChild(descriptionElement);
   cardHolder.appendChild(card);
   const learnMoreBtn = card.querySelector('.learn-more');
   learnMoreBtn.addEventListener('click', () => {
