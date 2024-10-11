@@ -88,13 +88,14 @@ fetch(rssUrl)
   })
   .catch(error => console.error('Error fetching or parsing RSS feed:', error));
 // filter by title
-function filteredByTitle ( events  , title) {
+function filterByTitle ( events  , title) {
   if (!title) return events;
+  return events.filter(titleFilt => titleFilt.title.toLowerCase().includes(title.toLowerCase()));
 }
 // filter by date
 function filterByDate(events, date) {
   if (!date) return events;
-  return events;
+  return events.filter(dateFilt => dateFilt.startDate.toLowerCase().includes(date.toLowerCase()));
 }
 // Filter events by description
 function filterByDesc(events, desc) {
@@ -139,12 +140,16 @@ function createEventCard(event) {
 // Clear Filter and Submit Filter buttons
 document.getElementById('submit-btn').addEventListener('click', () => {
   const descriptionFilter = document.getElementById('Desc-text').value;
-  const dateFilter = document.getElementById('Date-text');
-  const titleFilter = document.getElementById('Title-text');
-  const filteredEvents = filterByDesc(eventObjs, descriptionFilter);
+  const dateFilter = document.getElementById('Date-text').value;
+  const titleFilter = document.getElementById('Title-text').value;
+  const filteredDesc = filterByDesc(eventObjs, descriptionFilter);
+  const filteredDescTitle = filterByTitle(filteredDesc, titleFilter);
+  const filteredAll = filterByDate(filteredDescTitle, dateFilter)
+
   cardHolder.innerHTML = '';
   console.log('submitted')
-  filteredEvents.forEach(event => createEventCard(event));
+  filteredAll.forEach(event => createEventCard(event));
+
 })
 // listening for clear button
 document.getElementById('clear-btn').addEventListener('click', clearFilters);
