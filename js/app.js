@@ -89,12 +89,12 @@ fetch(rssUrl)
   .catch(error => console.error('Error fetching or parsing RSS feed:', error));
 // filter by title
 function filteredByTitle ( eventObjs  , title) {
-
+  if (!title) return events;
 }
 // filter by date
 function filterByDate(events, date) {
-  if (date) return events
-  return events
+  if (!date) return events;
+  return events;
 }
 // Filter events by description
 function filterByDesc(events, desc) {
