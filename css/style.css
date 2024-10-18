@@ -213,6 +213,27 @@ body {
   color: #000;
 }
 
+.pagination-controls,
+.pagination-controls-bottom {
+  display: flex;              /* Use flexbox for layout */
+  justify-content: right;    /* Center-align the items */
+  margin: 20px 10px;            /* Add some margin for spacing */
+}
+
+.paginator {
+  display: flex;              /* Use flexbox for layout within paginator */
+  align-items: center;        /* Vertically center align items */
+  gap: 20px;                  /* Increase gap between elements for more space */
+}
+
+label, select, button, span {
+  margin-right: 10px;          /* Add some spacing to the right of the label */
+}
+
+button:hover {
+  background-color: #eaeaea; /* Optional: darker background on hover */
+}
+
 /*.button-container .clear-btn:hover {*/
 /*  background-color: #999;*/
 /*}*/

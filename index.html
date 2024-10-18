@@ -22,47 +22,73 @@
 </head>
 
 <body>
-<header class="header">
-  <h1>My Events Manager</h1>
-  <!-- update this to show the number of cards that are currently being displayed-->
-  <h3 id="showing-value">Showing: </h3>
-  <fieldset class="filter-container">
-    <legend>Filter Events</legend>
-    <label class="Events">
-      <select name="Events" id="events">
-        <!-- Setup javascript to populate these with current event types -->
-        <option value="all">All</option>
-      </select>
-    </label>
-    <label class="Title">
-      <input type="text" id="Title-text" placeholder="Filter by Title">
-    </label>
-    <label class="Desc">
-      <input type="text" id="Desc-text" placeholder="Filter by Description">
-    </label>
-    <label class="Date">
-      <input type="text" id="Date-text" placeholder="Filter by Date">
-    </label>
-    <div class="button-container">
-      <button class="submit-btn" id="submit-btn">Submit</button>
-      <button class="clear-btn" id="clear-btn">Clear Filters</button>
-    </div>
+  <header class="header">
+    <h1>My Events Manager</h1>
+    <!-- update this to show the number of cards that are currently being displayed-->
+    <p id="event-count"></p>
+    <fieldset class="filter-container">
+      <legend>Filter Events</legend>
+      <label class="Events">
+        <select name="Events" id="events">
+          <!-- Setup javascript to populate these with current event types -->
+          <option value="all">All</option>
+        </select>
+      </label>
+      <label class="Title">
+        <input type="text" id="Title-text" placeholder="Enter Title">
+      </label>
+      <label class="Desc">
+        <input type="text" id="Desc-text" placeholder="Enter Description">
+      </label>
+      <label class="Date">
+        <input type="text" id="Date-text" placeholder="09/25/2024 or Sep 25,2024">
+      </label>
+      <div class="button-container">
+        <button class="submit-btn" id="submit-btn">Submit</button>
+        <button class="clear-btn" id="clear-btn">Clear Filters</button>
+      </div>
 
-  </fieldset>
-</header>
+    </fieldset>
+  </header>
 
-<div class="content">
-  <div class="card-holder" id="card-holder">
+  <main>
+    <div class="content">
+      <div class="pagination-controls" id="pagination-controls">
+        <label for="events-per-page">Events per page:</label>
+        <select id="events-per-page">
+          <option value="all" selected>All</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        <button id="prev-btn">Previous</button>
+        <button id="next-btn">Next</button>
+        <span id="page-info"></span>
+      </div>
 
-  </div>
-</div>
+      <div class="card-holder" id="card-holder">
+        <!-- Event cards will be dynamically added here -->
+      </div>
 
-<footer class="footer">
+      <div class="pagination-controls-bottom" id="pagination-controls-bottom">
+        <label for="events-per-page-bottom">Events per page:</label>
+        <select id="events-per-page-bottom">
+          <option value="all" selected>All</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        <button id="prev-btn-bottom">Previous</button>
+        <button id="next-btn-bottom">Next</button>
+        <span id="page-info-bottom"></span>
+      </div>
+  </main>
 
-</footer>
+  <footer class="footer">
+  </footer>
 
-<!-- Link the JavaScript file -->
-<script src="js/app.js"></script>
+  <!-- Link the JavaScript file -->
+  <script src="js/app.js"></script>
 </body>
 
 </html>
