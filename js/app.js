@@ -210,37 +210,41 @@ fetch(rssUrl)
 
 // Chain Filters in the submit-btn Event Listener
 document.getElementById('submit-btn').addEventListener('click', () => {
-  const descriptionFilter = document.getElementById('Desc-text').value;
-  const dateFilter = document.getElementById('Date-text').value;
-  const titleFilter = document.getElementById('Title-text').value;
+  const descriptionFilter = document.getElementById('Desc-text').value.trim();
+  const dateFilter = document.getElementById('Date-text').value.trim();
+  const titleFilter = document.getElementById('Title-text').value.trim();
 
   // Start by filtering through all events
   filteredEventObjs = eventObjs;  // Start with the full event list
 
-  // Apply each filter if there is a value entered by the user
-  filteredEventObjs = filterEvents(filteredEventObjs, titleFilter, filterByTitle);
-  filteredEventObjs = filterEvents(filteredEventObjs, descriptionFilter, filterByDesc);
+  // Apply title filter only if input is valid (non-empty after trimming)
+  if (titleFilter) {
+    filteredEventObjs = filterEvents(filteredEventObjs, titleFilter, filterByTitle);
+  }
+
+  // Apply description filter only if input is valid
+  if (descriptionFilter) {
+    filteredEventObjs = filterEvents(filteredEventObjs, descriptionFilter, filterByDesc);
+  }
 
   // Validate and apply date filter
   if (dateFilter && isValidDate(dateFilter)) {
     filteredEventObjs = filterEvents(filteredEventObjs, dateFilter, filterByDate);
   } else if (dateFilter) {
     alert("Please enter a valid date in a recognizable format.");
+    return;  // Stops the filter process if date is invalid
   }
 
-  if (filteredEventObjs.length === 0){
-    alert("No events to display."); // Optional alert
-    // Update the event count to show 0 events
-    document.getElementById('event-count').textContent = `Showing 0/${eventObjs.length} events`;
-    const eventContainer = document.getElementById("card-holder"); // Make sure this ID matches your HTML
-    eventContainer.innerHTML = ""; // Clear the container
+  if (filteredEventObjs.length === 0) {
+    // Displays message when no events match the filter
+    document.getElementById('event-count').textContent = `No events found. Please adjust the filters.`;
+    document.getElementById('card-holder').innerHTML = ''; // Clear the events display
   } else {
-    // Reset pagination to the first page after filtering
-    currentPage = 1;
-    updateEventsPerPage('all'); // Reset the events per page to 'all'
-
-    // Update pagination and display filtered events
-    displayPaginatedEvents();
+    // Displays number of matching events
+    document.getElementById('event-count').textContent = `Showing ${filteredEventObjs.length}/${eventObjs.length} events`;
+    currentPage = 1; // Resets to first page after filtering
+    updateEventsPerPage('all'); // Resets events per page to 'all'
+    displayPaginatedEvents(); // Displays paginated filtered events
   }
 });
 
