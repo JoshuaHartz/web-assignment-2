@@ -151,7 +151,7 @@ body {
   padding: 5px 5px 5px 10px;
   border-radius: 5px 0 0 5px;
   background-color: silver;
-  content: "Event"
+  content: "Show"
 }
 
 .Title::before {
@@ -170,17 +170,19 @@ body {
 }
 
 .filter-container {
+  margin: .2em .2em .2em .2em;
   border: 2px solid gray;
   padding: 1em 1em .5em .5em;
   border-radius: 10px 10px 10px 10px;
   background: #3e0087ff;
+  flex-wrap: wrap;
 }
 
 .button-container button,.filter-container input,.filter-container select {
   border: solid silver;
   margin: 0 1em 0 0;
   border-radius: 5px 5px 5px 5px;
-  padding: .5em 3em .5em 4em
+  padding: .5em 3em .5em 4em;
 }
 
 .filter-container label {
@@ -190,6 +192,7 @@ body {
 .button-container {
   display: flex;
   justify-content: space-between;
+
 }
 
 .button-container button {

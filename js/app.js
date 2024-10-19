@@ -6,40 +6,8 @@ let filteredEventObjs = [];
 let currentPage = 1;
 let eventsPerPage = 'all'; // Default number of events per page set to total events
 
-// Add filterEvents Function
-function filterEvents(events, filterValue, filterFunction) {
-  if (!filterValue) return events;  // If no value is specified, return all events
-  return filterFunction(events, filterValue);  // Apply the filter function
-}
 
-// Filter by title
-function filterByTitle(events, title) {
-  if (!title) return events; // Return all events if title is empty
-  return events.filter(eventItem => eventItem.title.toLowerCase().includes(title.toLowerCase()));
-}
 
-// filter by date
-function filterByDate(events, date) {
-  const parsedDate = Date.parse(date);
-  if (isNaN(parsedDate)) return events;  // Skip invalid date filters
-  const formattedDate = new Date(parsedDate).toLocaleDateString('en-US', {
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-  });
-  return events.filter(event => event.startDate === formattedDate);
-}
-
-// isValidDate Function
-function isValidDate(dateString) {
-  // Use Date.parse to check if the date is valid
-  const parsedDate = Date.parse(dateString);
-  return !isNaN(parsedDate); // Returns true if the date is valid
-}
-
-// Filter events by description
-function filterByDesc(events, desc) {
-  if (!desc) return events;
-  return events.filter(eventItem => eventItem.desc.toLowerCase().includes(desc.toLowerCase()));
-}
 
 // Clear filters and resent event display
 function clearFilters() {
@@ -53,6 +21,7 @@ function clearFilters() {
   document.getElementById('Title-text').value = '';
   document.getElementById('Desc-text').value = '';
   document.getElementById('Date-text').value = '';
+  document.getElementById('events').selectedIndex = 0;
   displayAllEvents();
 }
 
@@ -69,7 +38,7 @@ function createEventCard(event) {
   card.innerHTML = event.html
   const descriptionElement = document.createElement('p');
   descriptionElement.classList.add('description');
-  console.log(event.desc)
+  // console.log(event.desc)
   descriptionElement.innerHTML = event.desc
   descriptionElement.style.display = 'none';
   card.querySelector('.card-content').appendChild(descriptionElement);
@@ -150,9 +119,12 @@ fetch(rssUrl)
       // console.log(description)
       const enclosure = item.querySelector('enclosure');
       const imgSrc = enclosure ? enclosure.getAttribute('url') : 'learning.jpg';
+      const category = item.querySelector('category').textContent || 'No Category';
+
 
       const eventObj = {
         title: title,
+        category: category,
         startDate: formattedDate,
         location: location,
         desc: description,
@@ -203,20 +175,84 @@ fetch(rssUrl)
           learnMoreBtn.textContent = 'Learn more';
         }
       });
+      populateDropdown(category)
     });
     document.getElementById('event-count').textContent = `Showing ${eventObjs.length}/${eventObjs.length} events`; // Initial count
   })
   .catch(error => console.error('Error fetching or parsing RSS feed:', error));
+
+function populateDropdown(category) {
+  const dropdownElement = document.getElementById("events")
+  if (!category || category === 'No Category') {
+    // console.error("Category Does Not Exist")
+    return;
+  }
+  for (let i = 0; i < dropdownElement.options.length;i++) {
+    if (dropdownElement.options[i].text === category) {
+      // console.log(`"${category}" already exists`)
+      return;
+    }
+  }
+  const option = new Option(category,category)
+  dropdownElement.add(option)
+  // console.log("added option")
+}
+
+
+// Filter by title
+function filterByTitle(events, title) {
+  if (!title) return events; // Return all events if title is empty
+  return events.filter(eventItem => eventItem.title.toLowerCase().includes(title.toLowerCase()));
+}
+
+// filter by date
+function filterByDate(events, date) {
+  const parsedDate = Date.parse(date);
+  if (isNaN(parsedDate)) return events;  // Skip invalid date filters
+  const formattedDate = new Date(parsedDate).toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+  return events.filter(event => event.startDate === formattedDate);
+}
+
+// isValidDate Function
+function isValidDate(dateString) {
+  // Use Date.parse to check if the date is valid
+  const parsedDate = Date.parse(dateString);
+  return !isNaN(parsedDate); // Returns true if the date is valid
+}
+
+// Filter events by description
+function filterByDesc(events, desc) {
+  if (!desc) return events;
+  return events.filter(eventItem => eventItem.desc.toLowerCase().includes(desc.toLowerCase()));
+}
+
+function filterByCategory(events, categoryFilter) {
+return events.filter(eventItem => eventItem.category.includes(categoryFilter))
+}
+
+// Add filterEvents Function
+function filterEvents(events, filterValue, filterFunction) {
+  if (!filterValue) return events;  // If no value is specified, return all events
+  return filterFunction(events, filterValue);  // Apply the filter function
+}
+
 
 // Chain Filters in the submit-btn Event Listener
 document.getElementById('submit-btn').addEventListener('click', () => {
   const descriptionFilter = document.getElementById('Desc-text').value.trim();
   const dateFilter = document.getElementById('Date-text').value.trim();
   const titleFilter = document.getElementById('Title-text').value.trim();
+  const categoryFilter = document.getElementById('events').value.trim()
 
   // Start by filtering through all events
   filteredEventObjs = eventObjs;  // Start with the full event list
 
+  // filter if a specific category is wanted
+  if (categoryFilter && categoryFilter !== 'all') {
+    filteredEventObjs = filterEvents(filteredEventObjs, categoryFilter, filterByCategory)
+  }
   // Apply title filter only if input is valid (non-empty after trimming)
   if (titleFilter) {
     filteredEventObjs = filterEvents(filteredEventObjs, titleFilter, filterByTitle);
