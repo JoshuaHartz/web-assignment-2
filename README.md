@@ -30,6 +30,3 @@ make sure you change the destination to origin:dev not master
 * XML parser and card maker atleast 50% done by sunday 10/6/24 fully implemented with HTML and CSS soon after.
 * JS filtering backend done by the due date 10/14/24
 * Demo video of the website being ran on AWS also to be done by the due date
-
-# Responsibilities
-
